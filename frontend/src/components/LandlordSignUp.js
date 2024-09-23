@@ -10,23 +10,27 @@ const LandlordSignUp = () => {
   const [address, setAddress] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [error, setError] = useState(null);
-  const [type] = useState('Landlord'); // Ensure 'Landlord' is included
+  const [type] = useState('Landlord'); // Default 'Landlord' type
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null); // Reset error state
 
+    const data = {
+      name,
+      email,
+      password,
+      mobile_number: mobileNumber,
+      address,
+      date_of_birth: dateOfBirth,
+      type
+    };
+
+    console.log('Sending data:', data); // Log data to check before sending
+
     try {
-      const response = await axios.post('http://localhost:5000/landlords', {
-        name,
-        email,
-        password,
-        mobile_number: mobileNumber,
-        address,
-        date_of_birth: dateOfBirth, // Ensure this is included
-        type // Ensure this is included
-      });
+      const response = await axios.post('http://localhost:5000/landlords', data);
       console.log(response.data);
       navigate('/landlord-login'); // Redirect to landlord login page
     } catch (error) {

@@ -4,14 +4,21 @@ const router = express.Router();
 
 // Create a new landlord
 router.post('/', async (req, res) => {
-  const { name, email, password, mobile_number, address } = req.body;
+  const { name, email, password, mobile_number, address, date_of_birth, type } = req.body;
+
+  console.log('Received data:', req.body); // Log the request body to verify data
 
   try {
-    const landlord = new Landlord({ name, email, password, mobile_number, address });
+    if (!type || (type !== 'Landlord' && type !== 'Tenant')) {
+      return res.status(400).send({ error: "Type must be either 'Landlord' or 'Tenant'" });
+    }
+    
+    const landlord = new Landlord({ name, email, password, mobile_number, address, date_of_birth, type });
     await landlord.save();
     res.status(201).send(landlord);
   } catch (error) {
-    res.status(400).send({ error: error.message });
+    console.error(error);
+    res.status(400).send(error);
   }
 });
 
