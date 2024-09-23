@@ -1,0 +1,75 @@
+/* Reset some default styles */
+body, h1, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .dashboard-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh; /* Full viewport height */
+    padding: 20px;
+    background-color: #e9ecef; /* Light background color */
+  }
+  
+  header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #007bff; /* Header background color */
+    color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  h1 {
+    font-size: 24px;
+    font-weight: bold; /* Bold header */
+    padding-top: 25px;
+    padding-bottom: 5px;
+  }
+  
+  .logout-button {
+    background-color: #dc3545; /* Red background */
+    color: white;
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 15px; /* Consistent padding */
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .logout-button:hover {
+    background-color: #c82333; /* Darker red on hover */
+  }
+  
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px; /* Space between header and button group */
+  }
+  
+  .dashboard-button {
+    background-color: #007bff; /* Button background color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 20px; /* Consistent size and padding */
+    margin: 10px 0; /* Space between buttons */
+    cursor: pointer;
+    font-size: 16px;
+    width: 250px; /* Fixed width for uniformity */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transition */
+  }
+  
+  .dashboard-button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+    transform: scale(1.05); /* Slight zoom effect on hover */
+  }
+  
