@@ -1,50 +1,61 @@
-.signup-container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .signup-container h2 {
-    text-align: center;
-    color: #333;
-  }
-  
-  .signup-container label {
-    display: block;
-    margin-bottom: 5px;
-    color: #555;
-  }
-  
-  .signup-container input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-  }
-  
-  .signup-container .signup-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .signup-container .signup-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .error-message {
-    color: red;
-    text-align: center;
-    margin-bottom: 15px;
-  }
-  
+/* LandlordSignUp.css */
+.landlord-signup-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f2994a; /* Same background color as login */
+}
+
+.landlord-signup-card {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.landlord-signup-title {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+}
+
+.landlord-signup-input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  transition: border-color 0.3s ease;
+}
+
+.landlord-signup-input:focus {
+  outline: none;
+  border-color: #f2994a; /* Same focus color as login */
+}
+
+.landlord-signup-button {
+  background-color: #f2994a; /* Same button color as login */
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.landlord-signup-button:hover {
+  background-color: orange; /* Same hover color as login */
+}
+
+.error-message {
+  color: red; /* Error message color */
+  text-align: center;
+  margin-bottom: 1rem;
+}

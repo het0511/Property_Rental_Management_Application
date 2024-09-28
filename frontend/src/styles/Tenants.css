@@ -1,0 +1,66 @@
+/* Tenants.css */
+
+.tenants-page {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.tenants-page h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.tenants-page table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.tenants-page thead {
+    background-color: #34495e;
+    color: white;
+}
+
+.tenants-page th, .tenants-page td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Prevent header background from changing on row hover */
+.tenants-page th {
+    background-color: #34495e; /* Ensures header stays blue */
+}
+
+.tenants-page th:hover {
+    background-color: #34495e; /* Ensures header stays blue on hover */
+}
+
+.tenants-page tr:hover {
+    background-color: #f1f1f1;
+}
+
+.tenants-page button {
+    background-color: #34495e;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 0 5px; /* Margin between action buttons */
+}
+
+.tenants-page button:hover {
+    background-color: #1F2A36;
+}
+
+.tenants-page button.delete {
+    background-color: #ff4d4d; /* Different color for delete */
+}
+
+.tenants-page button.delete:hover {
+    background-color: #e63946; /* Darker shade for delete */
+}

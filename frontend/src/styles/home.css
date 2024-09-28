@@ -1,58 +1,59 @@
-/* home.css */
+/* Home.css */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
 
-/* Main container styling */
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(135deg, #74ebd5 0%, #acb6e5 100%);
-    font-family: 'Arial', sans-serif;
-  }
-  
-  /* Row styling for buttons */
-  .row {
-    text-align: center;
-  }
-  
-  /* Button styling */
-  .btn {
-    width: 200px;
-    padding: 15px;
-    margin: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  /* Hover effects */
-  .btn-primary:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  }
-  
-  .btn-success:hover {
-    background-color: #218838;
-    transform: scale(1.05);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Button text colors */
-  .btn-primary {
-    color: black;
-  }
-  
-  .btn-success {
-    color: black;
-  }
-  
-  /* General text styling */
-  h1 {
-    color: #ffffff;
-    margin-bottom: 40px;
-  }
-  
+.homepage {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to right, #00c6ff, #0072ff);
+  color: white;
+}
+
+.header {
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+}
+
+.header p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.login-options {
+  display: flex;
+  gap: 2rem;
+}
+
+.btn-landlord, .btn-tenant {
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-landlord {
+  background-color: #f2994a;
+  color: white;
+}
+
+.btn-tenant {
+  background-color: #B2E0D4;
+  color: white;
+}
+
+.btn-landlord:hover, .btn-tenant:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}

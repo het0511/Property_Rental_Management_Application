@@ -1,75 +1,56 @@
-/* Reset some default styles */
-body, h1, button {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  .dashboard-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    height: 100vh; /* Full viewport height */
-    padding: 20px;
-    background-color: #e9ecef; /* Light background color */
-  }
-  
-  header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #007bff; /* Header background color */
-    color: white;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  }
-  
-  h1 {
-    font-size: 24px;
-    font-weight: bold; /* Bold header */
-    padding-top: 25px;
-    padding-bottom: 5px;
-  }
-  
-  .logout-button {
-    background-color: #dc3545; /* Red background */
-    color: white;
-    border: none;
-    border-radius: 5px; /* Rounded corners */
-    padding: 10px 15px; /* Consistent padding */
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
-  }
-  
-  .logout-button:hover {
-    background-color: #c82333; /* Darker red on hover */
-  }
-  
-  .button-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 40px; /* Space between header and button group */
-  }
-  
-  .dashboard-button {
-    background-color: #007bff; /* Button background color */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 15px 20px; /* Consistent size and padding */
-    margin: 10px 0; /* Space between buttons */
-    cursor: pointer;
-    font-size: 16px;
-    width: 250px; /* Fixed width for uniformity */
-    transition: background-color 0.3s, transform 0.2s; /* Smooth transition */
-  }
-  
-  .dashboard-button:hover {
-    background-color: #0056b3; /* Darker shade on hover */
-    transform: scale(1.05); /* Slight zoom effect on hover */
-  }
-  
+/* Dashboard Container */
+.landlord-dashboard {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f4f7f6;
+}
+
+/* Sidebar */
+.landlord-dashboard .sidebar {
+  width: 250px;
+  background-color: #2c3e50;
+  color: white;
+  padding: 20px;
+}
+
+.landlord-dashboard .sidebar h2 {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.landlord-dashboard .sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.landlord-dashboard .sidebar ul li {
+  margin: 15px 0;
+}
+
+.landlord-dashboard .sidebar ul li a {
+  text-decoration: none;
+  color: #ecf0f1;
+  font-size: 1.1rem;
+  display: block;
+  transition: background 0.3s;
+}
+
+.landlord-dashboard .sidebar ul li a:hover {
+  background-color: #34495e;
+  padding-left: 10px;
+}
+
+/* Active Link */
+.landlord-dashboard .sidebar ul li a.active {
+  background-color: #34495e; /* Active link background */
+  font-weight: bold; /* Optional: Make active link bold */
+}
+
+/* Main Content */
+.landlord-dashboard .main-content {
+  flex-grow: 1;
+  padding: 30px;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}

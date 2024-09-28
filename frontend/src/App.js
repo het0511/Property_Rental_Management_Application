@@ -15,7 +15,7 @@ function App() {
         <Route path="/landlord-login" element={<LandlordLogin />} />
         <Route path="/tenant-signup" element={<TenantSignUp />} />
         <Route path="/landlord-signup" element={<LandlordSignUp />} />
-        <Route path="/landlord-dashboard" element={<LandlordDashboard />} />
+        <Route path="/landlord-dashboard/*" element={<LandlordDashboard />} />
       </Routes>
     </Router>
   );

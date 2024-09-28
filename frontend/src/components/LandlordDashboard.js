@@ -1,29 +1,72 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import './../styles/LandlordDashboard.css'; // Import the CSS file
+import React, { useEffect } from 'react';
+import { NavLink, Routes, Route, useNavigate } from 'react-router-dom';
+import Apartments from './Apartments';
+import Tenants from './Tenants';
+import MaintenanceRequests from './MaintenanceRequests';
+import './../styles/LandlordDashboard.css'; 
 
-function Dashboard() {
+const LandlordDashboard = () => {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/landlord-login'); // Redirect if no token found
+    }
+  }, [navigate]);
+
   const handleLogout = () => {
-    // Add your logout logic here
-    navigate('/login');
-  };
+    if (window.confirm("Are you sure you want to log out?")) {
+      localStorage.removeItem('token');
+      navigate('/landlord-login');
+    }
+  };  
 
   return (
-    <div className="dashboard-container">
-      <header>
-        <h1>Landlord Dashboard</h1>
-        <button className="logout-button" onClick={handleLogout}>Logout</button>
-      </header>
-
-      <div className="button-group">
-        <button className="dashboard-button" onClick={() => navigate('/tenant-management')}>Manage Tenants</button>
-        <button className="dashboard-button" onClick={() => navigate('/property-management')}>Manage Apartments</button>
-        <button className="dashboard-button" onClick={() => navigate('/maintenance-requests')}>Maintenance Requests</button>
+    <div className="landlord-dashboard">
+      <Sidebar handleLogout={handleLogout} />
+      <div className="main-content">
+        <Routes>
+          <Route path="apartments" element={<Apartments />} />
+          <Route path="tenants" element={<Tenants />} />
+          <Route path="maintenance" element={<MaintenanceRequests />} />
+        </Routes>
       </div>
     </div>
   );
-}
+};
 
-export default Dashboard;
+const Sidebar = ({ handleLogout }) => (
+  <div className="sidebar">
+    <h2>RentEase Dashboard</h2>
+    <ul>
+      <li>
+        <NavLink 
+          to="apartments" 
+          className={({ isActive }) => (isActive ? 'active' : '')}
+        >
+          Manage Apartments
+        </NavLink>
+      </li>
+      <li>
+        <NavLink 
+          to="tenants" 
+          className={({ isActive }) => (isActive ? 'active' : '')}
+        >
+          Manage Tenants
+        </NavLink>
+      </li>
+      <li>
+        <NavLink 
+          to="maintenance" 
+          className={({ isActive }) => (isActive ? 'active' : '')}
+        >
+          Maintenance Requests
+        </NavLink>
+      </li>
+    </ul>
+    <button className="logout-button" onClick={handleLogout}>Log Out</button> {/* Logout button */}
+  </div>
+);
+
+export default LandlordDashboard;

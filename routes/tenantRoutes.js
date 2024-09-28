@@ -1,17 +1,44 @@
 const express = require('express');
 const Tenant = require('../models/tenant');
+const jwt = require('jsonwebtoken'); // Import jsonwebtoken
 const router = express.Router();
+const SECRET_KEY = 'het_parikh'; // Replace with your actual secret key
 
-// Create a new tenant
-router.post('/', async (req, res) => {
+// Login a tenant
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
   try {
-    const tenant = new Tenant(req.body);
-    await tenant.save();
-    res.status(201).send(tenant);
+    const tenant = await Tenant.findOne({ email });
+    if (!tenant || !(await tenant.matchPassword(password))) { // Assuming you have a method to check passwords
+      return res.status(401).send({ error: 'Invalid email or password' });
+    }
+
+    // Create a token
+    const token = jwt.sign({ id: tenant._id }, SECRET_KEY, { expiresIn: '1h' }); // 1 hour expiration
+    res.status(200).send({ token }); // Send the token to the client
   } catch (error) {
-    res.status(400).send(error);
+    res.status(500).send(error);
   }
 });
+
+// Middleware to verify token
+const authenticate = (req, res, next) => {
+  const token = req.header('Authorization')?.replace('Bearer ', '');
+  if (!token) {
+    return res.status(401).send({ error: 'Access denied' });
+  }
+
+  try {
+    const verified = jwt.verify(token, SECRET_KEY);
+    req.tenant = verified; // Attach the tenant to the request
+    next(); // Proceed to the next middleware or route
+  } catch (error) {
+    res.status(400).send({ error: 'Invalid token' });
+  }
+};
+
+// Protect the routes with authentication
+router.use(authenticate); // Use the authentication middleware for the following routes
 
 // Get all tenants
 router.get('/', async (req, res) => {

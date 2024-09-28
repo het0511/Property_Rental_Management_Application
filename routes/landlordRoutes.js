@@ -1,19 +1,36 @@
 const express = require('express');
 const Landlord = require('../models/landlord');
 const router = express.Router();
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const secretKey = 'het_parikh';
 
-// Create a new landlord
+// Create a new landlord (Sign-Up)
 router.post('/', async (req, res) => {
   const { name, email, password, mobile_number, address, date_of_birth, type } = req.body;
 
   console.log('Received data:', req.body); // Log the request body to verify data
 
   try {
+    // Validate landlord or tenant type
     if (!type || (type !== 'Landlord' && type !== 'Tenant')) {
       return res.status(400).send({ error: "Type must be either 'Landlord' or 'Tenant'" });
     }
-    
-    const landlord = new Landlord({ name, email, password, mobile_number, address, date_of_birth, type });
+
+    // Hash the password before saving
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create new landlord with hashed password
+    const landlord = new Landlord({
+      name,
+      email,
+      password: hashedPassword, // Store the hashed password
+      mobile_number,
+      address,
+      date_of_birth,
+      type
+    });
+
     await landlord.save();
     res.status(201).send(landlord);
   } catch (error) {
@@ -22,25 +39,34 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Get all landlords
-router.get('/', async (req, res) => {
+// Landlord login route
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
   try {
-    const landlords = await Landlord.find();
-    res.status(200).send(landlords);
+    const landlord = await Landlord.findOne({ email });
+    if (!landlord) {
+      return res.status(400).send({ error: "Invalid email or password" });
+    }
+
+    // Compare entered password with the stored hashed password
+    const isPasswordValid = await bcrypt.compare(password, landlord.password);
+    if (!isPasswordValid) {
+      return res.status(400).send({ error: "Invalid email or password" });
+    }
+
+    // Generate a JWT token if the password is valid
+    const token = jwt.sign({ id: landlord._id, type: 'landlord' }, secretKey, { expiresIn: '1h' });
+    res.status(200).send({ message: "Login successful", token, userType: 'landlord' });
   } catch (error) {
     res.status(500).send({ error: error.message });
   }
 });
 
-// Login a landlord
-router.post('/login', async (req, res) => {
-  const { email, password } = req.body;
+// Get all landlords
+router.get('/', async (req, res) => {
   try {
-    const landlord = await Landlord.findOne({ email });
-    if (!landlord || landlord.password !== password) {
-      return res.status(400).send({ error: "Invalid email or password" });
-    }
-    res.status(200).send({ message: "Login successful", landlord });
+    const landlords = await Landlord.find();
+    res.status(200).send(landlords);
   } catch (error) {
     res.status(500).send({ error: error.message });
   }
