@@ -1,7 +1,40 @@
-import React from 'react';
-import './../styles/Apartments.css'; 
+import React, { useEffect, useState } from 'react';
+import './../styles/Apartments.css';
 
 const Apartments = () => {
+  const [apartments, setApartments] = useState([]); 
+  const [loading, setLoading] = useState(true);     
+
+  useEffect(() => {
+    const fetchApartments = async () => {
+      try {
+        const token = localStorage.getItem('token'); 
+        const response = await fetch('/apartments', {
+          headers: {
+            'Authorization': token,                  
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch apartments');
+        }
+
+        const data = await response.json();
+        setApartments(data);                         
+        setLoading(false);                           
+      } catch (error) {
+        console.error('Error fetching apartments:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchApartments();
+  }, []); 
+
+  if (loading) {
+    return <div>Loading apartments...</div>; 
+  }
+
   return (
     <div className="apartments-page">
       <h2>Manage Apartments</h2>
@@ -17,21 +50,54 @@ const Apartments = () => {
           </tr>
         </thead>
         <tbody>
-          {/* Apartment data should be loaded here */}
-          <tr>
-            <td>Sunset Villa</td>
-            <td>Downtown</td>
-            <td>$1500</td>
-            <td>Occupied</td>
-            <td>
-              <button>Edit</button>
-              <button className="delete">Delete</button>
-            </td>
-          </tr>
+          {apartments.length === 0 ? (
+            <tr>
+              <td colSpan="5">No apartments found</td> 
+            </tr>
+          ) : (
+            apartments.map((apartment) => (
+              <tr key={apartment._id}>
+                <td>{apartment.address}</td>
+                <td>{apartment.location || 'N/A'}</td> 
+                <td>${apartment.rent}</td>
+                <td>{apartment.status || 'Unknown'}</td> 
+                <td>
+                  <button>Edit</button>
+                  <button className="delete" onClick={() => handleDelete(apartment._id)}>Delete</button>
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>
   );
+};
+
+// Function to handle deletion of an apartment
+const handleDelete = async (id) => {
+  const confirmed = window.confirm('Are you sure you want to delete this apartment?');
+  if (!confirmed) return;
+
+  try {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`/apartments/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': token,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to delete apartment');
+    }
+
+    alert('Apartment deleted successfully');
+    window.location.reload(); // Reload the page to show updated apartments list
+  } catch (error) {
+    console.error('Error deleting apartment:', error);
+  }
 };
 
 export default Apartments;
