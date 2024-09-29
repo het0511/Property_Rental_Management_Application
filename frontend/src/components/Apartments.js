@@ -9,11 +9,16 @@ const Apartments = () => {
     const fetchApartments = async () => {
       try {
         const token = localStorage.getItem('token'); 
-        const response = await fetch('/apartments', {
+        // const response = await fetch('/apartments', {
+        //   headers: {
+        //     'Authorization': token,                  
+        //   },
+        // });
+        const response = await fetch('http://localhost:5000/apartments', {
           headers: {
-            'Authorization': token,                  
+            'Authorization': token,
           },
-        });
+        });        
 
         if (!response.ok) {
           throw new Error('Failed to fetch apartments');
@@ -81,13 +86,20 @@ const handleDelete = async (id) => {
 
   try {
     const token = localStorage.getItem('token');
-    const response = await fetch(`/apartments/${id}`, {
+    // const response = await fetch(`/apartments/${id}`, {
+    //   method: 'DELETE',
+    //   headers: {
+    //     'Authorization': token,
+    //     'Content-Type': 'application/json',
+    //   },
+    // });
+    const response = await fetch(`http://localhost:5000/apartments/${id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': token,
         'Content-Type': 'application/json',
       },
-    });
+    });    
 
     if (!response.ok) {
       throw new Error('Failed to delete apartment');
