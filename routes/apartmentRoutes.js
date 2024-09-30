@@ -92,4 +92,23 @@ router.delete('/:id', authenticateLandlord, async (req, res) => {
   }
 });
 
+// GET request to fetch a specific apartment by ID
+router.get('/:id', authenticateLandlord, async (req, res) => {
+  try {
+    const apartment = await Apartment.findOne({
+      _id: req.params.id,
+      landlord_id: req.landlordId, // Ensure this is set correctly to the authenticated landlord's ID
+    });
+
+    if (!apartment) {
+      return res.status(404).send({ error: 'Apartment not found' });
+    }
+
+    res.status(200).send(apartment);
+  } catch (error) {
+    console.error('Error fetching apartment:', error);
+    res.status(500).send({ error: 'Unable to fetch apartment' });
+  }
+});
+
 module.exports = router;
