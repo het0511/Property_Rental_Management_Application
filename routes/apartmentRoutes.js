@@ -35,15 +35,17 @@ router.get('/', authenticateLandlord, async (req, res) => {
 
 // Create a new apartment (Landlord Only)
 router.post('/', authenticateLandlord, async (req, res) => {
-  const { address, rent, contract, date_of_contract } = req.body;
+  const { name, address, rent, contract, date_of_contract, status } = req.body;
   
   try {
     const newApartment = new Apartment({
+      name,  // Include apartment name
       address,
       landlord_id: req.landlordId,  // Assign landlord ID from token
       rent,
       contract,
       date_of_contract,
+      status: status || 'Available',  // Default to 'Available' if no status is provided
     });
 
     await newApartment.save();
@@ -58,7 +60,7 @@ router.put('/:id', authenticateLandlord, async (req, res) => {
   try {
     const apartment = await Apartment.findOneAndUpdate(
       { _id: req.params.id, landlord_id: req.landlordId },  // Ensure landlord is the owner
-      req.body,
+      req.body,  // The entire req.body will include name, status, and other fields
       { new: true, runValidators: true }
     );
 

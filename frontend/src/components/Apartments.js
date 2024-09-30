@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './../styles/Apartments.css';
 
 const Apartments = () => {
   const [apartments, setApartments] = useState([]); 
-  const [loading, setLoading] = useState(true);     
+  const [loading, setLoading] = useState(true);   
+  const navigate = useNavigate();  
 
   useEffect(() => {
     const fetchApartments = async () => {
       try {
         const token = localStorage.getItem('token'); 
-        // const response = await fetch('/apartments', {
-        //   headers: {
-        //     'Authorization': token,                  
-        //   },
-        // });
         const response = await fetch('http://localhost:5000/apartments', {
           headers: {
             'Authorization': token,
@@ -43,12 +40,14 @@ const Apartments = () => {
   return (
     <div className="apartments-page">
       <h2>Manage Apartments</h2>
-      <button className="add-apartment-btn">Add Apartment</button>
+      <button className="add-apartment-btn" onClick={() => navigate('/add-apartment')}>
+        Add Apartment
+      </button>
       <table>
         <thead>
           <tr>
             <th>Apartment Name</th>
-            <th>Location</th>
+            <th>Location</th>  {/* Changed Location to Address */}
             <th>Rent</th>
             <th>Status</th>
             <th>Actions</th>
@@ -62,12 +61,12 @@ const Apartments = () => {
           ) : (
             apartments.map((apartment) => (
               <tr key={apartment._id}>
-                <td>{apartment.address}</td>
-                <td>{apartment.location || 'N/A'}</td> 
+                <td>{apartment.name || 'N/A'}</td> {/* Display apartment name */}
+                <td>{apartment.address || 'N/A'}</td>  {/* Display apartment address */}
                 <td>${apartment.rent}</td>
                 <td>{apartment.status || 'Unknown'}</td> 
                 <td>
-                  <button>Edit</button>
+                  <button onClick={() => navigate(`/edit-apartment/${apartment._id}`)}>Edit</button>
                   <button className="delete" onClick={() => handleDelete(apartment._id)}>Delete</button>
                 </td>
               </tr>
@@ -86,13 +85,6 @@ const handleDelete = async (id) => {
 
   try {
     const token = localStorage.getItem('token');
-    // const response = await fetch(`/apartments/${id}`, {
-    //   method: 'DELETE',
-    //   headers: {
-    //     'Authorization': token,
-    //     'Content-Type': 'application/json',
-    //   },
-    // });
     const response = await fetch(`http://localhost:5000/apartments/${id}`, {
       method: 'DELETE',
       headers: {

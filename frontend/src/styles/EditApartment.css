@@ -1,0 +1,23 @@
+.edit-apartment-page {
+    padding: 20px;
+  }
+  
+  .edit-apartment-page form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .edit-apartment-page label {
+    margin: 10px 0 5px;
+  }
+  
+  .edit-apartment-page input,
+  .edit-apartment-page select {
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .edit-apartment-page button {
+    margin-top: 10px;
+  }
+  

@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const apartmentSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, 'Apartment name is required'], 
+  },
   address: {
     type: String,
     required: [true, 'Address is required'],
@@ -20,6 +24,12 @@ const apartmentSchema = new mongoose.Schema({
   date_of_contract: {
     type: Date,
     required: [true, 'Date of contract is required'],
+  },
+  status: {
+    type: String,
+    enum: ['Occupied', 'Available'], // Status field with only two possible values
+    default: 'Available',            // Default status is 'Available'
+    required: [true, 'Status is required'],
   },
 });
 

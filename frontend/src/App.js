@@ -5,6 +5,8 @@ import TenantSignUp from './components/TenantSignUp';
 import LandlordSignUp from './components/LandlordSignUp';
 import LandlordDashboard from './components/LandlordDashboard';
 import TenantDashboard from './components/TenantDashboard';
+import AddApartment from './components/AddApartment';
+import EditApartment from './components/EditApartment';
 import Home from './Home';
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
         <Route path="/landlord-signup" element={<LandlordSignUp />} />
         <Route path="/landlord-dashboard/*" element={<LandlordDashboard />} />
         <Route path="/tenant-dashboard/*" element={<TenantDashboard />} />
+        <Route path="/add-apartment" element={<AddApartment />} />
+        <Route path="/edit-apartment/:id" element={<EditApartment />} />
       </Routes>
     </Router>
   );
