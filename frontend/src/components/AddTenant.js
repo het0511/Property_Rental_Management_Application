@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './../styles/AddTenant.css'; 
 
@@ -13,8 +13,39 @@ const AddTenant = () => {
     password: '',
     type: 'Tenant', // Default type
   });
-
+  
+  const [apartments, setApartments] = useState([]); // State to store apartments
   const navigate = useNavigate();
+
+  // Fetch available apartments for the logged-in landlord
+  useEffect(() => {
+    const fetchApartments = async () => {
+      const token = localStorage.getItem('token');
+
+      try {
+        const response = await fetch('http://localhost:5000/apartments', {
+          method: 'GET',
+          headers: {
+            'Authorization': token,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Failed to fetch apartments');
+        }
+
+        const data = await response.json();
+        setApartments(data); // Store apartments in state
+      } catch (error) {
+        console.error('Error fetching apartments:', error);
+        alert(`Error fetching apartments: ${error.message}`);
+      }
+    };
+
+    fetchApartments();
+  }, []); // Run once on component mount
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -111,14 +142,20 @@ const AddTenant = () => {
         </label>
 
         <label>
-          Apartment ID
-          <input
-            type="text"
+          Apartment
+          <select
             name="apartment_id"
             value={formData.apartment_id}
             onChange={handleInputChange}
             required
-          />
+          >
+            <option value="">Select an apartment</option>
+            {apartments.map(apartment => (
+              <option key={apartment._id} value={apartment._id}>
+                {apartment.name} {/* Assuming 'name' is the field you want to display */}
+              </option>
+            ))}
+          </select>
         </label>
 
         <label>
