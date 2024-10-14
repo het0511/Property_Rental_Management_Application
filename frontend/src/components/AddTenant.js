@@ -170,6 +170,9 @@ const AddTenant = () => {
         </label>
 
         <button type="submit" className="add-tenant-btn">Add Tenant</button>
+        <button type="button" onClick={() => navigate('/landlord-dashboard/tenants')}>
+          Cancel
+        </button>
       </form>
     </div>
   );

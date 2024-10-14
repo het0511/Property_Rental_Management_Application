@@ -114,7 +114,7 @@ const AddApartment = () => {
           </select>
         </label>
         <button type="submit">Add Apartment</button>
-        <button type="button" onClick={() => navigate('/apartments')}>
+        <button type="button" onClick={() => navigate('/landlord-dashboard/apartments')}>
           Cancel
         </button>
       </form>

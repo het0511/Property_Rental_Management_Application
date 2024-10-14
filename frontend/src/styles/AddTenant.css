@@ -1,84 +1,86 @@
-/* Scoped to .add-tenant-page to avoid overriding other styles */
 .add-tenant-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background: linear-gradient(135deg, #42a5f5, #90caf9);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  
-  .add-tenant-page h2 {
-    color: white;
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; /* Use min-height instead of height to allow for content overflow */
+  background: linear-gradient(135deg, #f06b6b, #ffca85);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.add-tenant-page h2 {
+  color: white;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.add-tenant-page form {
+  background: white;
+  border-radius: 10px;
+  padding: 20px; /* Reduced padding for better fit */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  box-sizing: border-box; /* Include padding in width calculations */
+}
+
+.add-tenant-page form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #444;
+}
+
+.add-tenant-page form input,
+.add-tenant-page form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  transition: border-color 0.3s;
+  box-sizing: border-box; /* Include padding in width calculations */
+}
+
+.add-tenant-page form input:focus,
+.add-tenant-page form select:focus {
+  border-color: #42a5f5;
+  outline: none;
+}
+
+.add-tenant-page button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #42a5f5;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-tenant-page button:hover {
+  background-color: #64b5f6;
+}
+
+.add-tenant-page button[type="button"] {
+  background-color: #ccc;
+  margin-left: 10px;
+}
+
+.add-tenant-page button[type="button"]:hover {
+  background-color: #bbb;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
   .add-tenant-page form {
-    background: white;
-    border-radius: 10px;
-    padding: 30px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    width: 100%;
-  }
-  
-  .add-tenant-page form label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 8px;
-    color: #444;
-  }
-  
-  .add-tenant-page form input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    transition: border-color 0.3s;
-  }
-  
-  .add-tenant-page form input:focus {
-    border-color: #42a5f5;
-    outline: none;
-  }
-  
-  .add-tenant-page button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #42a5f5;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .add-tenant-page button:hover {
-    background-color: #64b5f6;
-  }
-  
-  .add-tenant-page button[type="button"] {
-    background-color: #ccc;
-    margin-left: 10px;
-  }
-  
-  .add-tenant-page button[type="button"]:hover {
-    background-color: #bbb;
-  }
-  
-  /* Mobile responsiveness */
-  @media (max-width: 480px) {
-    .add-tenant-page form {
       padding: 20px;
       box-shadow: none;
-    }
-  
-    .add-tenant-page h2 {
-      font-size: 2rem;
-    }
   }
-  
+
+  .add-tenant-page h2 {
+      font-size: 2rem;
+  }
+}
