@@ -23,7 +23,6 @@ const apartmentSchema = new mongoose.Schema({
   },
   date_of_contract: {
     type: Date,
-    required: [true, 'Date of contract is required'],
   },
   status: {
     type: String,

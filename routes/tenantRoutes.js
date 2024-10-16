@@ -99,14 +99,22 @@ router.post('/', async (req, res) => {
       mobile_number,
       address,
       date_of_birth,
-      apartment_id, 
-      password, 
-      type: 'Tenant', 
+      apartment_id,
+      password,
+      type: 'Tenant',
     });
 
+    // Save the new tenant
     await newTenant.save();
+
+    // Update the apartment's status to 'Occupied' and set the date_of_contract
+    apartment.status = 'Occupied';
+    apartment.date_of_contract = new Date(); // Set the current date as the date of contract
+    await apartment.save();
+
     res.status(201).send(newTenant); // Respond with the created tenant
   } catch (error) {
+    console.error('Error creating tenant:', error);
     res.status(400).send({ error: 'Unable to create tenant' });
   }
 });
@@ -148,15 +156,35 @@ router.put('/:id', async (req, res) => {
 });
 
 // Delete a tenant by ID
+// Delete a tenant by ID and update the related apartment
 router.delete('/:id', async (req, res) => {
   try {
-    const tenant = await Tenant.findByIdAndDelete(req.params.id);
+    // Find the tenant by ID
+    const tenant = await Tenant.findById(req.params.id);
+
     if (!tenant) {
-      return res.status(404).send();
+      return res.status(404).send({ error: 'Tenant not found' });
     }
-    res.status(200).send(tenant);
+
+    // Find the related apartment by the tenant's apartment_id
+    const apartment = await Apartment.findById(tenant.apartment_id);
+
+    if (!apartment) {
+      return res.status(404).send({ error: 'Related apartment not found' });
+    }
+
+    // Delete the tenant
+    await Tenant.findByIdAndDelete(req.params.id);
+
+    // Update the apartment's status to 'Available' and clear the date_of_contract
+    apartment.status = 'Available';
+    apartment.date_of_contract = null; // Optionally clear the contract date
+    await apartment.save(); // Save the apartment update
+
+    res.status(200).send({ message: 'Tenant deleted and apartment status updated to Available' });
   } catch (error) {
-    res.status(500).send(error);
+    console.error('Error deleting tenant or updating apartment:', error);
+    res.status(500).send({ error: 'Failed to delete tenant or update apartment' });
   }
 });
 
