@@ -37,31 +37,6 @@ const authenticateLandlord = (req, res, next) => {
   }
 };
 
-// // Route to get all tenants linked to the logged-in landlord
-// router.get('/landlord-tenants', authenticateLandlord, async (req, res) => {
-//   try {
-//     const landlordId = req.landlordId; // Get landlord ID from token
-//     console.log('Landlord ID:', landlordId); // Debugging
-
-//     // Find apartments owned by the landlord
-//     const apartments = await Apartment.find({ landlord_id: landlordId });
-//     const apartmentIds = apartments.map(apartment => apartment._id); // Get apartment IDs
-//     console.log('Apartment IDs:', apartmentIds); // Debugging
-
-//     // Find tenants linked to those apartments
-//     const tenants = await Tenant.find({ apartment_id: { $in: apartmentIds } });
-    
-//     if (tenants.length === 0) {
-//       return res.status(404).send({ message: 'No tenants found' });
-//     }
-
-//     res.status(200).send(tenants);
-//   } catch (error) {
-//     console.error('Error fetching tenants:', error);
-//     res.status(500).send({ error: 'Failed to fetch tenants' });
-//   }
-// });
-
 // Get all tenants for the logged-in landlord
 router.get('/landlord-tenants', authenticateLandlord, async (req, res) => {
   try {
