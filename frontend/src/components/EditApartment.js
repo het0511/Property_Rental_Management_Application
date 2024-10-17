@@ -112,6 +112,25 @@ const EditApartment = () => {
           />
         </div>
         <div className="form-group">
+          <label>Contract Duration (Months):</label>
+          <input
+            type="number"
+            name="contract"
+            value={apartment.contract || ''}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>Date of Contract:</label>
+          <input
+            type="date"
+            name="date_of_contract"
+            value={apartment.date_of_contract ? apartment.date_of_contract.substring(0, 10) : ''} // Format date
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
           <label>Status:</label>
           <select
             name="status"

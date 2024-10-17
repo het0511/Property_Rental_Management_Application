@@ -98,6 +98,45 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+// Password change route
+router.put('/:id/change-password', async (req, res) => {
+  const { oldPassword, newPassword, confirmPassword } = req.body;
+
+  //console.log("Received passwords", { oldPassword, newPassword, confirmPassword }); // Add this for logging
+
+  try {
+    const landlord = await Landlord.findById(req.params.id);
+    if (!landlord) {
+      return res.status(404).send({ error: 'Landlord not found' });
+    }
+
+    // Check if old password matches the current one
+    const isPasswordValid = await bcrypt.compare(oldPassword, landlord.password);
+    if (!isPasswordValid) {
+      console.log("Old password does not match");
+      return res.status(400).send({ error: 'Old password is incorrect' });
+    }
+
+    // Check if new password matches confirm password
+    if (newPassword !== confirmPassword) {
+      console.log("Passwords do not match");
+      return res.status(400).send({ error: 'New password and confirm password do not match' });
+    }
+
+    // Hash the new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update landlord's password
+    landlord.password = hashedPassword;
+    await landlord.save();
+
+    res.status(200).send({ message: 'Password updated successfully' });
+  } catch (error) {
+    console.error("Error updating password", error);
+    res.status(500).send({ error: error.message });
+  }
+});
+
 // Delete a landlord by ID
 router.delete('/:id', async (req, res) => {
   try {

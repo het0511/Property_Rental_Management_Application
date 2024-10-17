@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { NavLink, Routes, Route, useNavigate } from 'react-router-dom';
 import Apartments from './Apartments';
 import Tenants from './Tenants';
+import Profile from './Profile';
 import MaintenanceRequests from './MaintenanceRequests';
 import './../styles/LandlordDashboard.css'; 
 
@@ -30,6 +31,7 @@ const LandlordDashboard = () => {
           <Route path="apartments" element={<Apartments />} />
           <Route path="tenants" element={<Tenants />} />
           <Route path="maintenance" element={<MaintenanceRequests />} />
+          <Route path="profile" element={<Profile />} />
         </Routes>
       </div>
     </div>
@@ -62,6 +64,14 @@ const Sidebar = ({ handleLogout }) => (
           className={({ isActive }) => (isActive ? 'active' : '')}
         >
           Maintenance Requests
+        </NavLink>
+      </li>
+      <li>
+        <NavLink 
+          to="profile" 
+          className={({ isActive }) => (isActive ? 'active' : '')}
+        >
+          My Profile
         </NavLink>
       </li>
     </ul>

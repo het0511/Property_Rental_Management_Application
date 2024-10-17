@@ -47,8 +47,10 @@ const Apartments = () => {
         <thead>
           <tr>
             <th>Apartment Name</th>
-            <th>Location</th>  {/* Changed Location to Address */}
+            <th>Location</th>
             <th>Rent</th>
+            <th>Contract (Months)</th> {/* New column for contract duration */}
+            <th>Date of Contract</th>  {/* New column for date_of_contract */}
             <th>Status</th>
             <th>Actions</th>
           </tr>
@@ -56,14 +58,16 @@ const Apartments = () => {
         <tbody>
           {apartments.length === 0 ? (
             <tr>
-              <td colSpan="5">No apartments found</td> 
+              <td colSpan="7">No apartments found</td> 
             </tr>
           ) : (
             apartments.map((apartment) => (
               <tr key={apartment._id}>
-                <td>{apartment.name || 'N/A'}</td> {/* Display apartment name */}
-                <td>{apartment.address || 'N/A'}</td>  {/* Display apartment address */}
+                <td>{apartment.name || 'N/A'}</td> 
+                <td>{apartment.address || 'N/A'}</td>  
                 <td>${apartment.rent}</td>
+                <td>{apartment.contract || 'N/A'}</td> {/* Display contract duration */}
+                <td>{apartment.date_of_contract ? new Date(apartment.date_of_contract).toLocaleDateString() : 'N/A'}</td> {/* Format and display date_of_contract */}
                 <td>{apartment.status || 'Unknown'}</td> 
                 <td>
                   <button onClick={() => navigate(`/edit-apartment/${apartment._id}`)}>Edit</button>
