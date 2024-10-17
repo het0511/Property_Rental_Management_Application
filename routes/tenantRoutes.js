@@ -145,17 +145,48 @@ router.get('/:id', async (req, res) => {
 // Update a tenant by ID
 router.put('/:id', async (req, res) => {
   try {
-    const tenant = await Tenant.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+    const { apartment_id } = req.body;
+
+    // Find the existing tenant
+    const tenant = await Tenant.findById(req.params.id);
     if (!tenant) {
-      return res.status(404).send();
+      return res.status(404).send({ error: 'Tenant not found' });
     }
-    res.status(200).send(tenant);
+
+    // Check if the new apartment is available
+    const newApartment = await Apartment.findById(apartment_id);
+    if (!newApartment || newApartment.status !== 'Available') {
+      return res.status(400).send({ error: 'Cannot assign apartment, it is not available' });
+    }
+
+    // Update the apartment status for the old apartment
+    if (tenant.apartment_id.toString() !== apartment_id) {
+      // Change old apartment status to available
+      const oldApartment = await Apartment.findById(tenant.apartment_id);
+      if (oldApartment) {
+        oldApartment.status = 'Available';
+        oldApartment.date_of_contract = null; // Reset the date_of_contract
+        await oldApartment.save();
+      }
+    }
+
+    // Update the tenant's apartment_id
+    tenant.apartment_id = apartment_id;
+
+    // Update the new apartment's status to occupied and set the date_of_contract
+    newApartment.status = 'Occupied';
+    newApartment.date_of_contract = new Date(); // Set the current date as the date of contract
+    await newApartment.save();
+
+    // Save the updated tenant
+    const updatedTenant = await tenant.save();
+    res.status(200).send(updatedTenant);
   } catch (error) {
-    res.status(400).send(error);
+    console.error('Error updating tenant:', error);
+    res.status(500).send({ error: 'Failed to update tenant' });
   }
 });
 
-// Delete a tenant by ID
 // Delete a tenant by ID and update the related apartment
 router.delete('/:id', async (req, res) => {
   try {

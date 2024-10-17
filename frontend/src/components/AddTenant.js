@@ -37,7 +37,9 @@ const AddTenant = () => {
         }
 
         const data = await response.json();
-        setApartments(data); // Store apartments in state
+        // Filter apartments with status 'Available' before setting state
+        const availableApartments = data.filter(apartment => apartment.status === 'Available');
+        setApartments(availableApartments); // Store only available apartments in state
       } catch (error) {
         console.error('Error fetching apartments:', error);
         alert(`Error fetching apartments: ${error.message}`);
@@ -152,7 +154,7 @@ const AddTenant = () => {
             <option value="">Select an apartment</option>
             {apartments.map(apartment => (
               <option key={apartment._id} value={apartment._id}>
-                {apartment.name} {/* Assuming 'name' is the field you want to display */}
+                {apartment.name} {/* Displaying the apartment name */}
               </option>
             ))}
           </select>

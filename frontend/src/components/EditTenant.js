@@ -49,7 +49,9 @@ const EditTenant = () => {
         }
 
         const data = await response.json();
-        setApartments(data);
+        // Filter only the apartments with status 'Available'
+        const availableApartments = data.filter(apartment => apartment.status === 'Available');
+        setApartments(availableApartments);
       } catch (error) {
         console.error('Error fetching apartments:', error);
         setError(error.message);
