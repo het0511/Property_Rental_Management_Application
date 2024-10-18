@@ -1,0 +1,70 @@
+.maintenance-page {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.maintenance-page h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.add-maintenance-btn {
+    background-color: #34495e;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s;
+}
+
+.add-maintenance-btn:hover {
+    background-color: #0056b3;
+}
+
+.maintenance-page table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.maintenance-page thead {
+    background-color: #34495e;
+    color: white;
+}
+
+.maintenance-page th, .maintenance-page td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.maintenance-page tr:hover {
+    background-color: #f1f1f1;
+}
+
+.maintenance-page th {
+    background-color: #34495e;
+}
+
+.maintenance-page th:hover {
+    background-color: #34495e;
+}
+
+.maintenance-page button {
+    background-color: #34495e;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 0 5px; /* Margin between action buttons */
+}
+
+.maintenance-page button:hover {
+    background-color: #1F2A36;
+}
