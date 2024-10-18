@@ -111,4 +111,19 @@ router.get('/:id', authenticateLandlord, async (req, res) => {
   }
 });
 
+router.get('/public/:id', async (req, res) => {
+  try {
+    const apartment = await Apartment.findById(req.params.id); // Find apartment by ID
+
+    if (!apartment) {
+      return res.status(404).send({ error: 'Apartment not found' });
+    }
+
+    res.status(200).send(apartment); // Send the apartment details
+  } catch (error) {
+    console.error('Error fetching apartment:', error);
+    res.status(500).send({ error: 'Unable to fetch apartment' });
+  }
+});
+
 module.exports = router;

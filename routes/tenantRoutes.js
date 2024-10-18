@@ -2,6 +2,7 @@ const express = require('express');
 const Tenant = require('../models/tenant');
 const Apartment = require('../models/apartment');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const router = express.Router();
 const SECRET_KEY = 'het_parikh'; // Replace with your actual secret key
 
@@ -216,6 +217,71 @@ router.delete('/:id', async (req, res) => {
   } catch (error) {
     console.error('Error deleting tenant or updating apartment:', error);
     res.status(500).send({ error: 'Failed to delete tenant or update apartment' });
+  }
+});
+
+// PUT request to update tenant details with authentication
+router.put('/auth/:id', authenticateTenant, async (req, res) => {
+  try {
+    const updates = req.body; // Get the updates from the request body
+
+    // Find the existing tenant
+    const tenant = await Tenant.findById(req.params.id);
+    if (!tenant) {
+      return res.status(404).send({ error: 'Tenant not found' });
+    }
+
+    // Update the tenant with the new details
+    Object.assign(tenant, updates); // Use Object.assign to update tenant details
+
+    // Save the updated tenant
+    const updatedTenant = await tenant.save();
+    res.status(200).send(updatedTenant);
+  } catch (error) {
+    console.error('Error updating tenant:', error);
+    res.status(500).send({ error: 'Failed to update tenant' });
+  }
+});
+
+// PUT request to change tenant password
+router.put('/:id/change-password', authenticateTenant, async (req, res) => {
+  try {
+    const { oldPassword, newPassword, confirmPassword } = req.body;
+    //console.log(oldPassword);
+    // Validate request body
+    if (!oldPassword || !newPassword || !confirmPassword) {
+      return res.status(400).send({ error: 'All fields are required' });
+    }
+
+    // Check if new passwords match
+    if (newPassword !== confirmPassword) {
+      return res.status(400).send({ error: 'New passwords do not match' });
+    }
+
+    // Find the tenant by ID
+    const tenant = await Tenant.findById(req.params.id);
+    if (!tenant) {
+      return res.status(404).send({ error: 'Tenant not found' });
+    }
+    //console.log(tenant.password);
+    // Check if the old password is correct
+    //const hashedOldPassword = await bcrypt.hash(oldPassword, 10);
+    const isMatch = tenant.password === oldPassword;
+    //console.log(isMatch);
+    if (!isMatch) {
+      return res.status(401).send({ error: 'Old password is incorrect' });
+    }
+
+    // Hash the new password
+    tenant.password = await bcrypt.hash(newPassword, 10); // 10 is the salt rounds
+
+    // Save the updated tenant
+    await tenant.save();
+
+    res.status(200).send({ message: 'Password changed successfully' });
+  } catch (error) {
+    console.error('Error changing password:', error);
+    res.status(500).send({ error: 'Failed to change password' });
   }
 });
 

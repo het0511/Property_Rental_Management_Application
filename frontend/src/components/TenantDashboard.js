@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { NavLink, Routes, Route, useNavigate } from 'react-router-dom';
-import AccountDetails from './AccountDetails';
+import TenantProfile from './TenantProfile'; 
 import RentPayment from './RentPayment';
-import Maintenance from './Maintenance';
+import TenantMaintenance from './TenantMaintenance';
 import './../styles/TenantDashboard.css';
 
 const TenantDashboard = () => {
@@ -27,9 +27,9 @@ const TenantDashboard = () => {
       <Sidebar handleLogout={handleLogout} />
       <div className="main-content">
         <Routes>
-          <Route path="account" element={<AccountDetails />} />
+          <Route path="profile" element={<TenantProfile />} /> 
           <Route path="pay-rent" element={<RentPayment />} />
-          <Route path="maintenance" element={<Maintenance />} />
+          <Route path="maintenance" element={<TenantMaintenance />} />
         </Routes>
       </div>
     </div>
@@ -38,16 +38,8 @@ const TenantDashboard = () => {
 
 const Sidebar = ({ handleLogout }) => (
   <div className="sidebar">
-    <h2>RentEase Tenant Dashboard</h2>
+    <h2>RentEase Dashboard</h2>
     <ul>
-      <li>
-        <NavLink 
-          to="account" 
-          className={({ isActive }) => (isActive ? 'active' : '')}
-        >
-          Manage Account
-        </NavLink>
-      </li>
       <li>
         <NavLink 
           to="pay-rent" 
@@ -62,6 +54,14 @@ const Sidebar = ({ handleLogout }) => (
           className={({ isActive }) => (isActive ? 'active' : '')}
         >
           Maintenance Requests
+        </NavLink>
+      </li>
+      <li>
+        <NavLink 
+          to="profile" 
+          className={({ isActive }) => (isActive ? 'active' : '')}
+        >
+          Profile
         </NavLink>
       </li>
     </ul>
