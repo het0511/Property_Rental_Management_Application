@@ -49,8 +49,8 @@ const Apartments = () => {
             <th>Apartment Name</th>
             <th>Location</th>
             <th>Rent</th>
-            <th>Contract (Months)</th> {/* New column for contract duration */}
-            <th>Date of Contract</th>  {/* New column for date_of_contract */}
+            <th>Contract (Months)</th> 
+            <th>Date of Contract</th>  
             <th>Status</th>
             <th>Actions</th>
           </tr>

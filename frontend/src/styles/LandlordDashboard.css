@@ -17,6 +17,12 @@
   font-size: 1.5rem;
   margin-bottom: 2rem;
   text-align: center;
+  padding: 10px 0; 
+  border-bottom: 2px solid #ecf0f1; 
+}
+
+.sidebar h2 {
+  color: #ecf0f1;
 }
 
 .landlord-dashboard .sidebar ul {
@@ -43,8 +49,8 @@
 
 /* Active Link */
 .landlord-dashboard .sidebar ul li a.active {
-  background-color: #34495e; /* Active link background */
-  font-weight: bold; /* Optional: Make active link bold */
+  background-color: #34495e; 
+  font-weight: bold; 
 }
 
 /* Main Content */
