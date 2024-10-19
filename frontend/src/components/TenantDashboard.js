@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { NavLink, Routes, Route, useNavigate } from 'react-router-dom';
+import { NavLink, Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import TenantProfile from './TenantProfile'; 
 import RentPayment from './RentPayment';
 import TenantMaintenance from './TenantMaintenance';
@@ -30,6 +30,8 @@ const TenantDashboard = () => {
           <Route path="profile" element={<TenantProfile />} /> 
           <Route path="pay-rent" element={<RentPayment />} />
           <Route path="maintenance" element={<TenantMaintenance />} />
+          {/* Redirect from root to apartments */}
+          <Route path="/" element={<Navigate to="profile" />} />
         </Routes>
       </div>
     </div>

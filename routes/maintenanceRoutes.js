@@ -5,12 +5,23 @@ const router = express.Router();
 
 // Middleware to get tenant ID from token
 const getTenantIdFromToken = (req) => {
-  const token = req.headers['authorization']?.split(' ')[1]; // Assuming Bearer token format
+  const token = req.headers['authorization']?.split(' ')[1]; 
   if (!token) {
     throw new Error('Authentication token is required');
   }
-  const decoded = jwt.verify(token, 'het_parikh'); // Use your JWT secret key
-  return decoded.id; // Ensure this matches the structure of your token payload
+  const decoded = jwt.verify(token, 'het_parikh'); 
+  return decoded.id; 
+};
+
+// Middleware to get landlord ID from token
+const getLandlordIdFromToken = (req) => {
+  const token = req.headers['authorization']?.split(' ')[1]; 
+  if (!token) {
+    throw new Error('Authentication token is required');
+  }
+  const decoded = jwt.verify(token, 'het_parikh'); 
+  console.log('Decoded Token:', decoded);
+  return decoded.id; 
 };
 
 // Create a new maintenance request
@@ -27,7 +38,7 @@ router.post('/', async (req, res) => {
       status: 'Pending', // Set initial status to 'Pending'
       date_of_request: new Date(), // Set current date and time
     });
-    //console.log('Received request body:', req.body);
+    
     // Save the maintenance request to the database
     await maintenance.save();
     
@@ -64,6 +75,17 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// Get all maintenance requests for the landlord
+router.get('/landlord', async (req, res) => {
+  try {
+    const landlordId = getLandlordIdFromToken(req);
+    const maintenanceRequests = await Maintenance.find({ landlord_id: landlordId });
+    res.status(200).send(maintenanceRequests);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+});
+
 // Update a maintenance request by ID (only request_type can be updated)
 router.put('/:id', async (req, res) => {
   try {
@@ -71,6 +93,24 @@ router.put('/:id', async (req, res) => {
     const maintenanceRequest = await Maintenance.findByIdAndUpdate(
       req.params.id,
       { request_type },
+      { new: true, runValidators: true }
+    );
+    if (!maintenanceRequest) {
+      return res.status(404).send({ error: 'Maintenance request not found' });
+    }
+    res.status(200).send(maintenanceRequest);
+  } catch (error) {
+    res.status(400).send({ error: error.message });
+  }
+});
+
+// Update the status of a maintenance request by ID
+router.put('/landlord/:id/status', async (req, res) => {
+  try {
+    const { status } = req.body; // Get the new status from the request body
+    const maintenanceRequest = await Maintenance.findByIdAndUpdate(
+      req.params.id,
+      { status }, // Update the status
       { new: true, runValidators: true }
     );
     if (!maintenanceRequest) {
