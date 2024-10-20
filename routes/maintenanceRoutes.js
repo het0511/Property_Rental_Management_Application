@@ -20,7 +20,7 @@ const getLandlordIdFromToken = (req) => {
     throw new Error('Authentication token is required');
   }
   const decoded = jwt.verify(token, 'het_parikh'); 
-  console.log('Decoded Token:', decoded);
+  //console.log('Decoded Token:', decoded);
   return decoded.id; 
 };
 
@@ -62,6 +62,17 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Get all maintenance requests for the landlord
+router.get('/landlord', async (req, res) => {
+  try {
+    const landlordId = getLandlordIdFromToken(req);
+    const maintenanceRequests = await Maintenance.find({ landlord_id: landlordId });
+    res.status(200).send(maintenanceRequests);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+});
+
 // Get a maintenance request by ID
 router.get('/:id', async (req, res) => {
   try {
@@ -75,24 +86,13 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Get all maintenance requests for the landlord
-router.get('/landlord', async (req, res) => {
-  try {
-    const landlordId = getLandlordIdFromToken(req);
-    const maintenanceRequests = await Maintenance.find({ landlord_id: landlordId });
-    res.status(200).send(maintenanceRequests);
-  } catch (error) {
-    res.status(500).send({ error: error.message });
-  }
-});
-
 // Update a maintenance request by ID (only request_type can be updated)
 router.put('/:id', async (req, res) => {
   try {
     const { request_type } = req.body; // Only allow updating request_type
     const maintenanceRequest = await Maintenance.findByIdAndUpdate(
       req.params.id,
-      { request_type },
+      { request_type, status: 'Pending' },
       { new: true, runValidators: true }
     );
     if (!maintenanceRequest) {
