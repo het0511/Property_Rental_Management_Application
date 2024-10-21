@@ -25,7 +25,6 @@
     margin-top: 10px; /* Space above the table */
   }
   
-  th,
   td {
     border: 1px solid #ddd; /* Light border for table cells */
     padding: 10px; /* Padding for cells */
@@ -33,9 +32,9 @@
   }
   
   th {
-    background-color: #2c3e50; /* Dark background for header cells */
-    color: white; /* White text for header cells */
-  }
+    background-color: #2c3e50 !important; /* Force the dark background for header cells */
+    color: white !important; /* Force the white text */
+  }  
   
   tr:nth-child(even) {
     background-color: #f2f2f2; /* Light gray background for even rows */
