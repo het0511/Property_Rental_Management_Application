@@ -25,6 +25,11 @@ const paymentSchema = new mongoose.Schema({
     required: [true, 'Time period is required'],
     description: "Time period for which the rent has been paid (e.g., '1 month', '6 months')",
   },
+  amount: {
+    type: Number,
+    required: [true, 'Amount is required'],
+    min: [0, 'Amount must be a positive number'],
+  },
 });
 
 const Payment = mongoose.model('Payment', paymentSchema);

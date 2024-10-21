@@ -3,6 +3,7 @@ import { NavLink, Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 import TenantProfile from './TenantProfile'; 
 import RentPayment from './RentPayment';
 import TenantMaintenance from './TenantMaintenance';
+import PaymentHistory from './PaymentHistory';
 import './../styles/TenantDashboard.css';
 
 const TenantDashboard = () => {
@@ -30,6 +31,7 @@ const TenantDashboard = () => {
           <Route path="profile" element={<TenantProfile />} /> 
           <Route path="pay-rent" element={<RentPayment />} />
           <Route path="maintenance" element={<TenantMaintenance />} />
+          <Route path="payment-history" element={<PaymentHistory />} />
           {/* Redirect from root to apartments */}
           <Route path="/" element={<Navigate to="profile" />} />
         </Routes>
@@ -56,6 +58,14 @@ const Sidebar = ({ handleLogout }) => (
           className={({ isActive }) => (isActive ? 'active' : '')}
         >
           Maintenance Requests
+        </NavLink>
+      </li>
+      <li>
+        <NavLink 
+          to="payment-history" 
+          className={({ isActive }) => (isActive ? 'active' : '')}
+        >
+          Payment History
         </NavLink>
       </li>
       <li>

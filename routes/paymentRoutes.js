@@ -5,6 +5,32 @@ const router = express.Router();
 
 const secretKey = 'het_parikh';
 
+const getTenantIdFromToken = (req) => {
+  const token = req.headers['authorization']?.split(' ')[1]; 
+  if (!token) {
+    throw new Error('Authentication token is required');
+  }
+  const decoded = jwt.verify(token, 'het_parikh'); 
+  return decoded.id; 
+};
+
+// Route to get payment history for a tenant
+router.get('/history', async (req, res) => {
+  try {
+    // Get tenant ID from token
+    const tenantId = getTenantIdFromToken(req);
+
+    // Fetch payment history for the tenant
+    const payments = await Payment.find({ tenant_id: tenantId });
+
+    // Return the payment history
+    res.status(200).send(payments);
+  } catch (error) {
+    console.error('Error fetching payment history:', error);
+    res.status(500).send({ error: error.message });
+  }
+});
+
 // Middleware to verify JWT token
 const authenticateToken = (req, res, next) => {
   const token = req.headers['authorization'];
