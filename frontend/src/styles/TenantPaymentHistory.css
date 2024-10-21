@@ -1,0 +1,67 @@
+/* TenantPaymentHistory.css */
+
+.tenant-payment-history {
+    padding: 20px;
+    border: 1px solid #ddd; /* Light border for visual separation */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background color */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+    margin: 20px 0; /* Margin for spacing from other elements */
+  }
+  
+  .tenant-payment-history h3 {
+    color: #2c3e50; /* Dark color for header */
+    margin-bottom: 15px; /* Space below the header */
+  }
+  
+  .error-message {
+    color: #e74c3c; /* Red color for error messages */
+    font-weight: bold; /* Bold text for emphasis */
+  }
+  
+  table {
+    width: 100%; /* Full width for the table */
+    border-collapse: collapse; /* Collapse borders */
+    margin-top: 10px; /* Space above the table */
+  }
+  
+  th,
+  td {
+    border: 1px solid #ddd; /* Light border for table cells */
+    padding: 10px; /* Padding for cells */
+    text-align: left; /* Left align text */
+  }
+  
+  th {
+    background-color: #2c3e50; /* Dark background for header cells */
+    color: white; /* White text for header cells */
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light gray background for even rows */
+  }
+  
+  tr:hover {
+    background-color: #dcdcdc; /* Change background on hover */
+  }
+  
+  /* Button styling */
+  .view-history-button {
+    background-color: #2c3e50; /* Dark background for button */
+    color: white; /* White text for button */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 8px 12px; /* Padding for button */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 14px; /* Font size */
+    transition: background-color 0.3s; /* Smooth background transition */
+  }
+  
+  .view-history-button:hover {
+    background-color: #1a252f; /* Darker shade on hover */
+  }
+  
+  .view-history-button:focus {
+    outline: none; /* Remove default outline */
+  }
+  

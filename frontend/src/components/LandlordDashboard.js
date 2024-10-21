@@ -5,6 +5,7 @@ import Tenants from './Tenants';
 import Profile from './Profile';
 import MaintenanceRequests from './MaintenanceRequests';
 import './../styles/LandlordDashboard.css'; 
+import ViewPaymentHistory from './ViewPaymentHistory';
 
 const LandlordDashboard = () => {
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ const LandlordDashboard = () => {
           <Route path="tenants" element={<Tenants />} />
           <Route path="maintenance" element={<MaintenanceRequests />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="view-payment" element={<ViewPaymentHistory />} />
           {/* Redirect from root to apartments */}
           <Route path="/" element={<Navigate to="apartments" />} />
         </Routes>
@@ -66,6 +68,14 @@ const Sidebar = ({ handleLogout }) => (
           className={({ isActive }) => (isActive ? 'active' : '')}
         >
           Maintenance Requests
+        </NavLink>
+      </li>
+      <li>
+        <NavLink 
+          to="view-payment" 
+          className={({ isActive }) => (isActive ? 'active' : '')}
+        >
+          View Payment History
         </NavLink>
       </li>
       <li>

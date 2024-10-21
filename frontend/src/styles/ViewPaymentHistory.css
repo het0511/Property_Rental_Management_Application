@@ -1,0 +1,61 @@
+/* ViewPaymentHistory.css */
+
+.view-payment-history {
+  padding: 20px; /* Padding for the main container */
+  border: 1px solid #ddd; /* Light border for visual separation */
+  border-radius: 5px; /* Rounded corners */
+  background-color: #f9f9f9; /* Light background color */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+  margin: 20px 0; /* Margin for spacing from other elements */
+}
+
+.view-payment-history h2 {
+  color: #2c3e50; /* Dark color for the header */
+  margin-bottom: 15px; /* Space below the header */
+}
+
+.error-message {
+  color: #e74c3c; /* Red color for error messages */
+  font-weight: bold; /* Bold text for emphasis */
+}
+
+.view-payment-history ul {
+  list-style-type: none; /* Remove bullet points from the list */
+  padding: 0; /* Remove padding */
+}
+
+.view-payment-history li {
+  padding: 10px; /* Padding for list items */
+  border: 1px solid #ddd; /* Light border for list items */
+  border-radius: 5px; /* Rounded corners for list items */
+  margin-bottom: 10px; /* Space between list items */
+  background-color: #fff; /* White background for list items */
+  transition: background-color 0.3s; /* Smooth background transition */
+  display: flex; /* Use flexbox for alignment */
+  justify-content: space-between; /* Space between tenant name and button */
+  align-items: center; /* Align items vertically centered */
+}
+
+.view-payment-history li:hover {
+  background-color: #f2f2f2; /* Change background on hover */
+}
+
+.view-payment-history button {
+  background-color: #2c3e50; /* Dark background for buttons */
+  color: white; /* White text for buttons */
+  border: none; /* No border */
+  border-radius: 4px; /* Rounded corners for buttons */
+  padding: 8px 12px; /* Padding for buttons */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 14px; /* Font size for buttons */
+  transition: background-color 0.3s; /* Smooth background transition */
+  margin-left: 15px; /* Add margin to the left of the button */
+}
+
+.view-payment-history button:hover {
+  background-color: #1a252f; /* Darker shade on hover */
+}
+
+.view-payment-history button:focus {
+  outline: none; /* Remove default outline */
+}
